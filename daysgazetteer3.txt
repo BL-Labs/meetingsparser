@@ -1,0 +1,11 @@
+today
+this day
+tomorrow
+to-morrow
+Sunday
+Monday
+Tuesday
+Wednesday
+Thursday
+Friday
+Saturday
