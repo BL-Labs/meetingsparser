@@ -2,7 +2,7 @@ import csv, string, os, re
 
 MDFILE = "metadataNorthernStar.csv"
 OCRFOLDER = "Northern Star 1841 OCR text forthcoming meetings\TEXT FILES"
-FINALCSV = "outputgeo10.csv"
+FINALCSV = "outputgeo27july2015.csv"
 
 HEADERS = ["NewspaperText", "Date of meeting", "Place","Longitude", "Latitude", "Newspaper", "Date"]
 
