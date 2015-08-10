@@ -37,7 +37,7 @@ with open(INPUTFILE) as csvfile:
   # ASSUMPTION: All the columns will have *different* header names
   reader = csv.DictReader(csvfile)
   
-  with open(NOMATCH_FILE, 'w' as nomatchfile:
+  with open(NOMATCH_FILE, 'w') as nomatchfile:
     nomatchwriter = csv.DictWriter(nomatchfile, delimiter = ",", fieldnames = reader.fieldnames)
     # writing headers
     nomatchwriter.writerow(dict((fn,fn) for fn in reader.fieldnames))
