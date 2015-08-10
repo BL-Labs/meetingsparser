@@ -28,8 +28,8 @@ alldays = { 'today': timedelta(days=0),
 def find_matches(inputtext):
   matching = []
   for token in inputtext.split():
-    if token in alldays:
-      matching.append(token)
+    if token.strip(".") in alldays:
+      matching.append(token.strip("."))
   return matching
 
 with open(INPUTFILE) as csvfile:
