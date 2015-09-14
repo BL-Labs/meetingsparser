@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime, timedelta
 
-INPUTFILE = 'outputgeo.csv'
+INPUTFILE = 'geocoded_notdated_allyears.csv'
 MATCHOUTPUTFILE = 'daysfound.csv'
 NOMATCH_FILE = 'unmatched.csv'
 
@@ -80,10 +80,8 @@ with open(INPUTFILE, "r", newline="") as csvfile:
         elif len(matching) == 1:
           # Choice 3 - Exactly one match
           meetingdate = paperdate + alldays[matching[0]]
-          row[MEETINGDATE_HEADER] = datetime.strftime(meetingdate,'%d/%m/%Y')
+          row[MEETINGDATE_HEADER] = datetime.strftime(meetingdate,'%Y-%m-%d')
           print("Single match! '{0}' - meeting date = {1}".format(matching[0], row[MEETINGDATE_HEADER]))
           writermatch.writerow(row)
         
-
-                
 
