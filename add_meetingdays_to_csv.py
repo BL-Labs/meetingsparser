@@ -32,17 +32,17 @@ def find_matches(inputtext):
       matching.append(token.strip("."))
   return matching
 
-with open(INPUTFILE) as csvfile:
+with open(INPUTFILE, "r", newline="") as csvfile:
   # open the source file and create a dictionary csv reader. 
   # ASSUMPTION: All the columns will have *different* header names
   reader = csv.DictReader(csvfile)
   
-  with open(NOMATCH_FILE, 'w') as nomatchfile:
+  with open(NOMATCH_FILE, 'w', newline="") as nomatchfile:
     nomatchwriter = csv.DictWriter(nomatchfile, delimiter = ",", fieldnames = reader.fieldnames)
     # writing headers
     nomatchwriter.writerow(dict((fn,fn) for fn in reader.fieldnames))
 
-    with open(MATCHOUTPUTFILE,'w') as matchfile:
+    with open(MATCHOUTPUTFILE,'w', newline="") as matchfile:
       # Add a new column to the data row types
       headerlist = reader.fieldnames + [MEETINGDATE_HEADER]
       # Creating a dictionary writer and setting the fieldnames parameter, as
