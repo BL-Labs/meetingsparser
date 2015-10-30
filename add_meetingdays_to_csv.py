@@ -6,6 +6,8 @@ MATCHOUTPUTFILE = 'daysfound.csv'
 NOMATCH_FILE = 'unmatched.csv'
 
 MEETINGDATE_HEADER = 'Item Type Metadata:meeting date'
+COLLECTION_NAME_HEADER = 'Collection'
+
 
 # NB This doesn't do anything? commenting out for now.
 #Import the keywords
@@ -32,17 +34,17 @@ def find_matches(inputtext):
       matching.append(token.strip("."))
   return matching
 
-with open(INPUTFILE, "r", newline="") as csvfile:
+with open(INPUTFILE, "rt", newline="") as csvfile:
   # open the source file and create a dictionary csv reader. 
   # ASSUMPTION: All the columns will have *different* header names
   reader = csv.DictReader(csvfile)
   
-  with open(NOMATCH_FILE, 'w', newline="") as nomatchfile:
+  with open(NOMATCH_FILE, 'wt', newline="") as nomatchfile:
     nomatchwriter = csv.DictWriter(nomatchfile, delimiter = ",", fieldnames = reader.fieldnames)
     # writing headers
     nomatchwriter.writerow(dict((fn,fn) for fn in reader.fieldnames))
 
-    with open(MATCHOUTPUTFILE,'w', newline="") as matchfile:
+    with open(MATCHOUTPUTFILE,'wt', newline="") as matchfile:
       # Add a new column to the data row types
       headerlist = reader.fieldnames + [MEETINGDATE_HEADER]
       # Creating a dictionary writer and setting the fieldnames parameter, as
@@ -77,6 +79,30 @@ with open(INPUTFILE, "r", newline="") as csvfile:
           # Choice 2 - more than one match 
           print("More than one match! '{0}'".format(matching))
           print("Not doing anything with these for now. Writing to {0}".format(NOMATCH_FILE))
+          # Assume a Tour
+          # 1. Create collection to hold tour
+          # 2. break up line to its constituents
+          # 3. Create meetings, remembering that the 'placename' is likely to be the name of the person on tour!
+          # 4. Only actually add the information to the csv if any stops were found at step 2
+          collection_row = {} # NEED TO GET THE INPUTFILE... why did it go!?
+          # Name collection after guy and first date?
+          tourstops = []
+          for idx, sentence in enumerate(meetingText.split(".")):   # break on full stops?
+            matching = find_matches(sentence)
+            if len(matching) == 1:
+              # found a date
+              print("We're on a tour! Meeting No. {2} - '{0}' - meeting date = {1}".format(matching[0], row[MEETINGDATE_HEADER], str(idx)))
+              copiedrow = row.copy()
+              copiedrow[MEETINGDATE_HEADER] = datetime.strftime(meetingdate,'%Y-%m-%d')
+              copiedrow[COLLECTION_NAME_HEADER] = "FIXME"
+              # Likely need a new sortable field to capture index of tour stop?
+              # Also useful in highlighting partially decoded lines
+              # eg copiedrow[TOUR_INDEX] = idx
+              tourstops.append(copiedrow)
+          if tourstops:
+            writermatch.writerow(collection_row)
+            for trow in tourstops:
+              writermatch.writerow(trow)
         elif len(matching) == 1:
           # Choice 3 - Exactly one match
           meetingdate = paperdate + alldays[matching[0]]
