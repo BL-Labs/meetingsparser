@@ -7,5 +7,6 @@ http://politicalmeetingsmapper.co.uk
 designed by Dr Katrina Navickas, University of Hertfordshire, and Ben O'Steen, British Library Labs
 contact k.navickas@herts.ac.uk
 # instructions
-1. 'extractandgeotag.py' extracts the place information from the newspaper txt files and geoparses the places using the gazetteer  'NS_gazetteer.csv'
-2. The csv output is then run through 'add_meetingdays_to_csv.py' using 'metadataNorthernStar.csv' to date the meetings.
+1. the newspaper files are in the 'TEXT FILES' folder. 
+2. use 'extractandgeotag.py' to extract the place information from the newspaper txt files and geoparse the places with the gazetteer 'NS_gazetteer.csv'
+3. The csv output is then run through 'add_meetingdays_to_csv.py' using 'metadataNorthernStar.csv' to date the meetings. The input file on line 4 should be renamed to match the output file created in step 2. 
