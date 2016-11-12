@@ -1,0 +1,6 @@
+fixes for the code
+
+in the geotagged output file, change columns so that zoom level column reads 7 and shift the other two columns right
+
+add 'collection' column before running through add days
+
